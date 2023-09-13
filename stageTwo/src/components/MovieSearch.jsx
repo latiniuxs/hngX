@@ -23,7 +23,7 @@ export const MovieSearch = ({ handleSearch }) => {
           type="text"
           placeholder="What do you want to watch?"
           value={query}
-          className="bg-transparent opacity-75 mx-2 md:mx-4 font-normal w-full md:w-3/4 lg:w-4/5 placeholder-white focus:outline-none focus:border-none focus:ring-0"
+          className="bg-transparent opacity-75 mx-2 md:mx-4 font-normal w-full md:w-3/4 lg:w-4/5 placeholder-white text-sm focus:outline-none focus:border-none focus:ring-0"
           onChange={(e) => setQuery(e.target.value)}
         />
         <button onClick={searchMoviesAndSetResults}>
