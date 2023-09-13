@@ -18,18 +18,19 @@ export const MovieSearch = ({ handleSearch }) => {
   return (
     <nav className="flex items-center justify-between  text-white">
       <img src={Logo} alt="LogoImage"></img>
-      <div className="flex border-2 border-white rounded-md justify-between w-52 md:w-[50%] px-1 items-center">
+      <div className="flex md:flex-row border-2 border-white rounded-md justify-between w-full md:w-[50%] lg:w-[40%] px-2 md:px-1 items-center">
         <input
           type="text"
           placeholder="What do you want to watch?"
           value={query}
-          className="bg-transparent opacity-75 mx-4 font-normal w-3/4 placeholder-white focus:outline-none focus:border-none focus:ring-0"
+          className="bg-transparent opacity-75 mx-2 md:mx-4 font-normal w-full md:w-3/4 lg:w-4/5 placeholder-white focus:outline-none focus:border-none focus:ring-0"
           onChange={(e) => setQuery(e.target.value)}
         />
         <button onClick={searchMoviesAndSetResults}>
-          <img className="ml-12" src={searchIcon} alt="searchIcon" />
+          <img className="ml-2 md:ml-4" src={searchIcon} alt="searchIcon" />
         </button>
       </div>
+
       <div className="hidden md:flex items-center">
         <h5 className="mr-5">Sign in</h5>
         <img src={hamburger} alt="hamburger menu" />

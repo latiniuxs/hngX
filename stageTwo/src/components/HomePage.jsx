@@ -22,10 +22,10 @@ const HomePage = () => {
     <div className="home-page">
       <Poster movie={topMovies} handleSearch={handleSearch} />
       <div className="m-[5rem]">
-        <div className="flex flex-row items-center justify-between my-10">
-          <h1 className="text-black font-dm-sans text-4xl md:text-3xl lg:text-2xl font-bold leading-48 whitespace-nowrap">
+        <div className="flex flex-row items-center justify-between my-3 md:my-10">
+          <p className="text-black font-dm-sans lg:ml-2 md:text-3xl lg:text-4xl font-bold leading-48 whitespace-nowrap">
             Featured Movie
-          </h1>
+          </p>
           <div className="flex items-center space-x-2">
             <p className="text-[#B91C1C] text-sm md:text-base lg:text-sm whitespace-nowrap">
               see more
