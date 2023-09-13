@@ -7,8 +7,8 @@ const MovieCard = ({ movie }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = (e) => {
-    e.stopPropagation();
     setIsFavorite(!isFavorite);
+    e.stopPropagation();
   };
 
   const releaseDateUTC = new Date(release_date).toLocaleDateString();
@@ -24,12 +24,12 @@ const MovieCard = ({ movie }) => {
           />
           <div
             className="absolute top-2 right-2"
-            onClick={toggleFavorite}
           >
             <img
               src={favoriteIcon}
-              className={` ${isFavorite ? "bg-red-500 m-0 p-0" : ""}`}
+              className={` ${isFavorite ? "bg-red-500 rounded-full" : ""}`}
               alt={`Favorite Icon for ${title}`}
+              onClick={toggleFavorite}
             />
           </div>
         </div>
