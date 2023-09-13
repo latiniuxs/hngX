@@ -14,7 +14,7 @@ const MovieCard = ({ movie }) => {
   const releaseDateUTC = new Date(release_date).toLocaleDateString();
 
   return (
-    // <Link to={`/movies/${id}`} data-testid="movie-card">
+    <Link to={`/movies/${id}`} data-testid="movie-card">
       <div className="relative bg-white rounded-lg shadow-lg cursor-pointer mb-4 sm:mb-6 md:mb-8 lg:mb-10">
         <div className="w-full h-96 relative">
           <img
@@ -42,7 +42,7 @@ const MovieCard = ({ movie }) => {
           </h2>
         </div>
       </div>
-    // </Link>
+    </Link>
   );
 };
 
