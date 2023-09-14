@@ -14,6 +14,9 @@ const HomePage = () => {
       .catch((error) => console.error("Error fetching top movies:", error));
   }, []);
   // const [searchResults, setSearchResults] = useState([]);
+  if (!topMovies){
+    return <div>Loading</div>
+  }
   const handleSearch = (query) => {
     setTopMovies(query);
   };
