@@ -7,8 +7,9 @@ const MovieCard = ({ movie }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = (e) => {
-    setIsFavorite(!isFavorite);
+    e.preventDefault();
     e.stopPropagation();
+    setIsFavorite(!isFavorite);
   };
 
   const releaseDateUTC = new Date(release_date).toLocaleDateString();
