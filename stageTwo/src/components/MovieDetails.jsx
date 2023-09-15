@@ -44,9 +44,9 @@ const MovieDetails = () => {
                 className="rounded-lg w-[100%]"
                 alt={`${movieDetails.title} image`}
               />
-              <div className="flex mt-10">
+              <div className="flex flex-col text-sm md:text-base text-gray-600  md:flex-row mt-10">
                 <h1>{movieDetails.title}</h1>
-                <p>Release Date: {movieDetails.release_date}</p>
+                <p className="md:mx-2">Release Date: {movieDetails.release_date}</p>
                 <p>Runtime: {movieDetails.runtime} minutes</p>
               </div>
               <div className="flex flex-col md:flex-row">
@@ -57,15 +57,15 @@ const MovieDetails = () => {
                   className="w-100vw md:w-[42.5%]"
                 />
               </div>
-              <div className="flex mt-6">
-                <div className="w-[62%] mr-3">
+              <div className="flex flex-col md:flex-row mt-6">
+                <div className="md:w-[62%] mr-3">
                   <p>Director : {}</p>
                   <p className="my-8">writers: {}</p>
                   <p className="mb-8">Stars: {}</p>
-                  <img src={nomination} alt="movie nominations" />
+                  <img className="w-[100vw]" src={nomination} alt="movie nominations" />
                 </div>
                 <div>
-                  <img src={bestMovies} alt="best movies" className="w-82.5%" />
+                  <img src={bestMovies} alt="best movies" className="w-[100vw] md:[w-82.5%]" />
                 </div>
               </div>
             </div>
