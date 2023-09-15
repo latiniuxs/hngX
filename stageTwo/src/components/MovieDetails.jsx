@@ -7,12 +7,12 @@ import nomination from "../assets/nominations.svg";
 import bestMovies from "../assets/bestMovies.svg";
 import { BadRequest } from "./BadRequest";
 import Loading from "./Loading";
+import { Footer } from "./Footer";
 
-const MovieDetails = () => {
+const MovieDetails = ({isError, errorMessage, setErrorMessage, setIsError }) => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -22,19 +22,21 @@ const MovieDetails = () => {
           setIsLoading(false);
         })
         .catch((error) => {
-          setError(`Error fetching movie details: , ${error.message}`);
+          setErrorMessage(`Error fetching movie details: , ${error.message}`);
           setIsLoading(false);
+          setIsError(true)
         });
     }, 1000);
-  }, [id]);
+  }, [id, setErrorMessage, setIsError]);
 
   return (
     <div className="movie-details">
       {isLoading ? (
         <Loading />
-      ) : (
+      ) :isError ? (
+          <BadRequest message={errorMessage} />
+      ):(
         <>
-          {error && <BadRequest message={error.message} />}
           <div className="flex justify-start">
             <img
               src={movieNavbar}
@@ -48,15 +50,15 @@ const MovieDetails = () => {
                 alt={`${movieDetails.title} image`}
               />
               <div className="flex flex-col text-sm md:text-base text-gray-600  md:flex-row mt-10">
-                <h1>{movieDetails.title}</h1>
-                <p className="md:mx-2">
-                  Release Date:{" "}
+                <h1 data-tesid="movie-title">{movieDetails.title}</h1>
+                <p data-testid="movie-release-date" className="md:mx-2">
+                  Release Date:
                   {new Date(movieDetails.release_date).toDateString()}
                 </p>
-                <p>Runtime: {movieDetails.runtime} minutes</p>
+                <p data-testid="movie-runtime">Runtime: {movieDetails.runtime} minutes</p>
               </div>
               <div className="flex flex-col md:flex-row">
-                <p className="mt-12 md:w-[62%]"> {movieDetails.overview}</p>
+                <p data-testid="movie-overview" className="mt-12 md:w-[62%]"> {movieDetails.overview}</p>
                 <img
                   src={moreOption}
                   alt="movie options"
@@ -84,6 +86,7 @@ const MovieDetails = () => {
               </div>
             </div>
           </div>
+          <Footer/>
         </>
       )}
     </div>

@@ -22,6 +22,7 @@ const MovieCard = ({ movie }) => {
             src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
             alt={title}
             className="w-full h-full object-cover rounded-t-lg"
+            data-testid = "movie-poster"
           />
           <div
             className="absolute top-2 right-2"

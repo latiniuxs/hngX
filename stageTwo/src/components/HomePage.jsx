@@ -7,11 +7,9 @@ import Chevron_right from "../assets/Chevron_right.svg";
 import { BadRequest } from "./BadRequest";
 import Loading from "./Loading";
 
-const HomePage = () => {
+const HomePage = ({ isError, errorMessage, setIsError, setErrorMessage }) => {
   const [topMovies, setTopMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [iserror, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,20 +22,25 @@ const HomePage = () => {
         .catch((error) => {
           setErrorMessage(error.message);
           setIsLoading(false);
-          setIsError(true)
+          setIsError(true);
         });
     }, 1000);
-  }, []);
+  }, [setErrorMessage, setIsError]);
 
   const handleSearch = (query) => {
-    setTopMovies(query);
+    setIsLoading(true);
+    setTimeout(() => {
+      setTopMovies(query);
+      setIsLoading(false);
+    }, 1000); 
   };
+  
 
   return (
     <div className="home-page">
       {isLoading ? (
         <Loading />
-      ) : iserror ? (
+      ) : isError ? (
         <BadRequest message={errorMessage} />
       ) : (
         <>
@@ -59,13 +62,19 @@ const HomePage = () => {
               </div>
             </div>
 
-            <div className="grid lg:grid-cols-4 md:gap-10 md:grid-cols-3 sm:gap-5 sm:grid-cols-2 px-5 lg:mx-3 lg:gap-12">
-              {topMovies &&
-                topMovies
-                  .filter((movie) => movie.poster_path !== null)
-                  .slice(0, 10)
-                  .map((movie) => <MovieCard key={movie.id} movie={movie} />)}
-            </div>
+            {isLoading ? (
+              <Loading /> // Display loading page while fetching data
+            ) : (
+              <div className="grid lg:grid-cols-4 md:gap-10 md:grid-cols-3 sm:gap-5 sm:grid-cols-2 px-5 lg:mx-3 lg:gap-12">
+                {topMovies &&
+                  topMovies
+                    .filter((movie) => movie.poster_path !== null)
+                    .slice(0, 10)
+                    .map((movie) => (
+                      <MovieCard key={movie.id} movie={movie} />
+                    ))}
+              </div>
+            )}
           </div>
           <Footer />
         </>
