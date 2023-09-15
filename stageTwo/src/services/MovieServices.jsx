@@ -52,29 +52,3 @@ export const fetchMovieDetails = async (id) => {
   }
 };
 
-export const fetchMovieTrailer = async (id) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/movie/${id}/videos`, {
-      params: {
-        api_key: API_KEY,
-        language: 'en-US',
-      },
-    });
-
-    if (response.data.results.length > 0) {
-      const trailer = response.data.results.find((video) => video.type === 'Trailer');
-
-      if (trailer) {
-        if (trailer.site === 'YouTube') {
-          return `https://www.youtube.com/watch?v=${trailer.key}`;
-        }
-        // Handle other video hosting sites if necessary
-      }
-    }
-
-    return null;
-  } catch (error) {
-    console.error('Error fetching movie trailer:', error);
-    throw error;
-  }
-};

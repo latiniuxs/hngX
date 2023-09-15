@@ -10,7 +10,8 @@ import Loading from "./Loading";
 const HomePage = () => {
   const [topMovies, setTopMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [iserror, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,8 +22,9 @@ const HomePage = () => {
           setIsLoading(false);
         })
         .catch((error) => {
-          setError(`Error fetching top movies:${error.message}`);
+          setErrorMessage(error.message);
           setIsLoading(false);
+          setIsError(true)
         });
     }, 1000);
   }, []);
@@ -33,11 +35,12 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      {isLoading ? ( 
+      {isLoading ? (
         <Loading />
+      ) : iserror ? (
+        <BadRequest message={errorMessage} />
       ) : (
         <>
-        {error && <BadRequest message={error} />}
           <Poster movie={topMovies} handleSearch={handleSearch} />
           <div className="lg:m-[4rem] md:4rem">
             <div className="flex flex-row items-center px-5 justify-between my-3 md:my-10">

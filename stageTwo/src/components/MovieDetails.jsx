@@ -14,7 +14,6 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
   useEffect(() => {
     setTimeout(() => {
       fetchMovieDetails(id)
@@ -35,7 +34,7 @@ const MovieDetails = () => {
         <Loading />
       ) : (
         <>
-        {error && <BadRequest message={error} />}
+          {error && <BadRequest message={error.message} />}
           <div className="flex justify-start">
             <img
               src={movieNavbar}
@@ -50,7 +49,10 @@ const MovieDetails = () => {
               />
               <div className="flex flex-col text-sm md:text-base text-gray-600  md:flex-row mt-10">
                 <h1>{movieDetails.title}</h1>
-                <p className="md:mx-2">Release Date: {new Date(movieDetails.release_date).toDateString()}</p>
+                <p className="md:mx-2">
+                  Release Date:{" "}
+                  {new Date(movieDetails.release_date).toDateString()}
+                </p>
                 <p>Runtime: {movieDetails.runtime} minutes</p>
               </div>
               <div className="flex flex-col md:flex-row">
@@ -66,10 +68,18 @@ const MovieDetails = () => {
                   <p>Director : {}</p>
                   <p className="my-8">writers: {}</p>
                   <p className="mb-8">Stars: {}</p>
-                  <img className="w-[100vw]" src={nomination} alt="movie nominations" />
+                  <img
+                    className="w-[100vw]"
+                    src={nomination}
+                    alt="movie nominations"
+                  />
                 </div>
                 <div>
-                  <img src={bestMovies} alt="best movies" className="w-[100vw] md:[w-82.5%]" />
+                  <img
+                    src={bestMovies}
+                    alt="best movies"
+                    className="w-[100vw] md:[w-82.5%]"
+                  />
                 </div>
               </div>
             </div>
