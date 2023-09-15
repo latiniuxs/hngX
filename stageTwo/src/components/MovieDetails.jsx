@@ -2,42 +2,76 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieDetails } from "../services/MovieServices";
 import movieNavbar from "../assets/movieNavbar.svg";
+import moreOption from "../assets/moreOption.svg";
+import nomination from "../assets/nominations.svg";
+import bestMovies from "../assets/bestMovies.svg";
+import Loading from "./Loading";
+
 const MovieDetails = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchMovieDetails(id)
-      .then((data) => setMovieDetails(data))
-      .catch((error) => console.error("Error fetching movie details:", error));
+    setTimeout(() => {
+      fetchMovieDetails(id)
+        .then((data) => {
+          setMovieDetails(data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching movie details:", error);
+          setIsLoading(false);
+        });
+    }, 1000);
   }, [id]);
-  console.log(movieDetails);
-  // if (!movieDetails) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <div className="movie-details">
-      <div className="flex">
-        <img
-          src={movieNavbar}
-          alt="movie navbar"
-          className="hidden sm:block lg:block md:block"
-        />
-        <div className="p-2">
-          <img
-            src={`https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`}
-            className=" rounded-lg w-[100%]  "
-            alt={`${movieDetails.title} image`}
-          />
-          <div className="flex">
-            <h1>{movieDetails.title}</h1>
-            <p>Release Date: {movieDetails.release_date}</p>
-            <p>Runtime: {movieDetails.runtime} minutes</p>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="flex justify-start">
+            <img
+              src={movieNavbar}
+              alt="movie navbar"
+              className="hidden h-[auto] lg:block"
+            />
+            <div className="p-3">
+              <img
+                src={`https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`}
+                className="rounded-lg w-[100%]"
+                alt={`${movieDetails.title} image`}
+              />
+              <div className="flex mt-10">
+                <h1>{movieDetails.title}</h1>
+                <p>Release Date: {movieDetails.release_date}</p>
+                <p>Runtime: {movieDetails.runtime} minutes</p>
+              </div>
+              <div className="flex flex-col md:flex-row">
+                <p className="mt-12 md:w-[62%]"> {movieDetails.overview}</p>
+                <img
+                  src={moreOption}
+                  alt="movie options"
+                  className="w-100vw md:w-[42.5%]"
+                />
+              </div>
+              <div className="flex mt-6">
+                <div className="w-[62%] mr-3">
+                  <p>Director : {}</p>
+                  <p className="my-8">writers: {}</p>
+                  <p className="mb-8">Stars: {}</p>
+                  <img src={nomination} alt="movie nominations" />
+                </div>
+                <div>
+                  <img src={bestMovies} alt="best movies" className="w-82.5%" />
+                </div>
+              </div>
+            </div>
           </div>
-          <p>{movieDetails.overview}</p>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };

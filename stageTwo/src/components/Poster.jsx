@@ -10,7 +10,6 @@ export const Poster = ({ movie, handleSearch }) => {
   useEffect(() => {
     if (movie && movie.length > 0) {
       const randomIndex = Math.floor(Math.random() * movie.length);
-      console.log(randomIndex);
       setRandomMovie(movie[randomIndex]);
     }
   }, [movie]);
@@ -19,14 +18,15 @@ export const Poster = ({ movie, handleSearch }) => {
     <div className="landing-page">
       {randomMovie && (
         <div
-          className="image w-full h-[85vh] bg-no-repeat bg-cover  px-4 py-4 lg:px-20"
+      className="h-[75vh] bg-no-repeat bg-center lg:px-20"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original/${randomMovie.poster_path})`,
+            backgroundSize: 'cover',
           }}
         >
           <div className="overlay">
             <MovieSearch handleSearch={handleSearch} />
-            <div className="w-[404px] h-[285px] top-158 left-98 gap-16 mt-[4rem] text-white">
+            <div className="w-[100%] h-[285px] top-158 p-2 left-98 gap-16 mt-[4rem] text-white">
               <h1 className="font-dm-sans text-5xl font-bold leading-56 tracking-normal text-left text-white">
                 {randomMovie.title}
               </h1>
@@ -41,7 +41,7 @@ export const Poster = ({ movie, handleSearch }) => {
                 </div>
               </div>
               <p className="w-[302px] h-auto text-xs">{randomMovie.overview}</p>
-              <button className="flex bg-rose-700 py-2 px-3 rounded-lg md:mt-5 hover:text-rose-700 hover:bg-white">
+              <button className="flex bg-rose-700 py-2 my-2 px-3 rounded-lg md:mt-5 hover:text-rose-700 hover:bg-white">
                 <img src={PlayButton} alt="watch trailer" />
                 WATCH TRAILER
               </button>

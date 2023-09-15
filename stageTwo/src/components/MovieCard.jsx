@@ -17,7 +17,7 @@ const MovieCard = ({ movie }) => {
   return (
     <Link to={`/movies/${id}`} data-testid="movie-card">
       <div className="relative bg-white rounded-lg shadow-lg cursor-pointer mb-4 sm:mb-6 md:mb-8 lg:mb-10">
-        <div className="w-full h-96 relative">
+        <div className=" h-96 relative">
           <img
             src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
             alt={title}

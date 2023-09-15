@@ -16,8 +16,8 @@ export const MovieSearch = ({ handleSearch }) => {
   };
 
   return (
-    <nav className="flex items-center justify-between  text-white">
-      <img src={Logo} alt="LogoImage"></img>
+    <nav className="flex items-center justify-between p-2 text-white">
+      <img src={Logo}  alt="LogoImage"></img>
       <div className="flex md:flex-row border-2 border-white rounded-md justify-between w-full md:w-[50%] lg:w-[40%] px-2 md:px-1 items-center">
         <input
           type="text"
