@@ -12,7 +12,7 @@ const MovieCard = ({ movie }) => {
     setIsFavorite(!isFavorite);
   };
 
-  const releaseDateUTC = new Date(release_date).toLocaleDateString();
+
 
   return (
     <Link to={`/movies/${id}`} data-testid="movie-card">
@@ -36,7 +36,7 @@ const MovieCard = ({ movie }) => {
         </div>
         <div className="p-4">
           <p className="text-gray-600 text-sm truncate" data-testid="movie-release-date">
-            {releaseDateUTC}
+            {release_date}
           </p>
           <h2 className="text-lg font-semibold truncate" data-testid="movie-title">
             {title}

@@ -5,12 +5,15 @@ import movieNavbar from "../assets/movieNavbar.svg";
 import moreOption from "../assets/moreOption.svg";
 import nomination from "../assets/nominations.svg";
 import bestMovies from "../assets/bestMovies.svg";
+import { BadRequest } from "./BadRequest";
 import Loading from "./Loading";
 
 const MovieDetails = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -20,7 +23,7 @@ const MovieDetails = () => {
           setIsLoading(false);
         })
         .catch((error) => {
-          console.error("Error fetching movie details:", error);
+          setError(`Error fetching movie details: , ${error.message}`);
           setIsLoading(false);
         });
     }, 1000);
@@ -32,6 +35,7 @@ const MovieDetails = () => {
         <Loading />
       ) : (
         <>
+        {error && <BadRequest message={error} />}
           <div className="flex justify-start">
             <img
               src={movieNavbar}
@@ -46,7 +50,7 @@ const MovieDetails = () => {
               />
               <div className="flex flex-col text-sm md:text-base text-gray-600  md:flex-row mt-10">
                 <h1>{movieDetails.title}</h1>
-                <p className="md:mx-2">Release Date: {movieDetails.release_date}</p>
+                <p className="md:mx-2">Release Date: {new Date(movieDetails.release_date).toDateString()}</p>
                 <p>Runtime: {movieDetails.runtime} minutes</p>
               </div>
               <div className="flex flex-col md:flex-row">

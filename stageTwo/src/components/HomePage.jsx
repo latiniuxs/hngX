@@ -4,11 +4,13 @@ import { fetchTopMovies } from "../services/MovieServices";
 import { Poster } from "./Poster";
 import { Footer } from "./Footer";
 import Chevron_right from "../assets/Chevron_right.svg";
+import { BadRequest } from "./BadRequest";
 import Loading from "./Loading";
 
 const HomePage = () => {
   const [topMovies, setTopMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -19,7 +21,7 @@ const HomePage = () => {
           setIsLoading(false);
         })
         .catch((error) => {
-          console.error("Error fetching top movies:", error);
+          setError(`Error fetching top movies:${error.message}`);
           setIsLoading(false);
         });
     }, 1000);
@@ -35,6 +37,7 @@ const HomePage = () => {
         <Loading />
       ) : (
         <>
+        {error && <BadRequest message={error} />}
           <Poster movie={topMovies} handleSearch={handleSearch} />
           <div className="lg:m-[4rem] md:4rem">
             <div className="flex flex-row items-center px-5 justify-between my-3 md:my-10">
