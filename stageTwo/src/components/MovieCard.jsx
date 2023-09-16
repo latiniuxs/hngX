@@ -12,6 +12,12 @@ const MovieCard = ({ movie }) => {
     setIsFavorite(!isFavorite);
   };
 
+  const releaseDate = new Date(release_date);
+    releaseDate.setMinutes(
+    releaseDate.getMinutes() + releaseDate.getTimezoneOffset()
+  );
+  const utcReleaseYear = releaseDate.getUTCFullYear();
+
 
 
   return (
@@ -37,7 +43,7 @@ const MovieCard = ({ movie }) => {
         </div>
         <div className="p-4">
           <p className="text-gray-600 text-sm truncate" data-testid="movie-release-date">
-            {release_date}
+            {utcReleaseYear}
           </p>
           <h2 className="text-lg font-semibold truncate" data-testid="movie-title">
             {title}

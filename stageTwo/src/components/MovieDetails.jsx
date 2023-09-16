@@ -9,7 +9,12 @@ import { BadRequest } from "./BadRequest";
 import Loading from "./Loading";
 import { Footer } from "./Footer";
 
-const MovieDetails = ({isError, errorMessage, setErrorMessage, setIsError }) => {
+const MovieDetails = ({
+  isError,
+  errorMessage,
+  setErrorMessage,
+  setIsError,
+}) => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -24,18 +29,25 @@ const MovieDetails = ({isError, errorMessage, setErrorMessage, setIsError }) => 
         .catch((error) => {
           setErrorMessage(`Error fetching movie details: , ${error.message}`);
           setIsLoading(false);
-          setIsError(true)
+          setIsError(true);
         });
     }, 1000);
   }, [id, setErrorMessage, setIsError]);
+
+  const releaseDateStr = movieDetails.release_date;
+  const releaseDate = new Date(releaseDateStr);
+    releaseDate.setMinutes(
+    releaseDate.getMinutes() + releaseDate.getTimezoneOffset()
+  );
+  const utcReleaseYear = releaseDate.getUTCFullYear();
 
   return (
     <div className="movie-details">
       {isLoading ? (
         <Loading />
-      ) :isError ? (
-          <BadRequest message={errorMessage} />
-      ):(
+      ) : isError ? (
+        <BadRequest message={errorMessage} />
+      ) : (
         <>
           <div className="flex justify-start">
             <img
@@ -51,16 +63,19 @@ const MovieDetails = ({isError, errorMessage, setErrorMessage, setIsError }) => 
               />
               <div className="flex flex-col text-sm md:text-base text-gray-600  md:flex-row mt-10">
                 <h1 data-tesid="movie-title">{movieDetails.title}</h1>
-                <p data-testid="movie-release-date" className="md:mx-2">
-                <span>Release Date:</span>                
-                  {new Date(movieDetails.release_date).toDateString()}
+                <span>Release Date:</span>
+                <p data-testid="movie-release-date" className="md:mr-2">
+                  {utcReleaseYear}
                 </p>
                 <span>Runtime: </span>
                 <p data-testid="movie-runtime">{movieDetails.runtime}</p>
                 <span>minutes</span>
               </div>
               <div className="flex flex-col md:flex-row">
-                <p data-testid="movie-overview" className="mt-12 md:w-[62%]"> {movieDetails.overview}</p>
+                <p data-testid="movie-overview" className="mt-12 md:w-[62%]">
+                  {" "}
+                  {movieDetails.overview}
+                </p>
                 <img
                   src={moreOption}
                   alt="movie options"
@@ -88,7 +103,7 @@ const MovieDetails = ({isError, errorMessage, setErrorMessage, setIsError }) => 
               </div>
             </div>
           </div>
-          <Footer/>
+          <Footer />
         </>
       )}
     </div>
