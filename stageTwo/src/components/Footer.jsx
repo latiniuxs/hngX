@@ -5,7 +5,7 @@ import youtube from '../assets/fa-brands_youtube.svg'
 
 export const Footer = () => {
   return (
-    <div className='flex flex-col '>
+    <div className='flex flex-col mt-10 '>
     <div className='flex justify-center align-middle text-center space-x-7 '>
     <img src={facebook} alt="facebook icon"/>
     <img src={instagram} alt="instagram icon"/>
@@ -17,7 +17,7 @@ export const Footer = () => {
     <p className='mx-10 '>Privacy & Policy</p>
     <p>Press Room</p>
     </div>
-    <div className='flex justify-center align-middle text-center mb-20 '>
+    <div className='flex justify-center align-middle text-center'>
     <p>© {new Date().getFullYear()} MovieBox by Hiphotler</p>
     </div>
     </div>

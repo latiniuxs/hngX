@@ -52,10 +52,12 @@ const MovieDetails = ({isError, errorMessage, setErrorMessage, setIsError }) => 
               <div className="flex flex-col text-sm md:text-base text-gray-600  md:flex-row mt-10">
                 <h1 data-tesid="movie-title">{movieDetails.title}</h1>
                 <p data-testid="movie-release-date" className="md:mx-2">
-                  Release Date:
+                <span>Release Date:</span>                
                   {new Date(movieDetails.release_date).toDateString()}
                 </p>
-                <p data-testid="movie-runtime">Runtime: {movieDetails.runtime} minutes</p>
+                <span>Runtime: </span>
+                <p data-testid="movie-runtime">{movieDetails.runtime}</p>
+                <span>minutes</span>
               </div>
               <div className="flex flex-col md:flex-row">
                 <p data-testid="movie-overview" className="mt-12 md:w-[62%]"> {movieDetails.overview}</p>
