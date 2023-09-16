@@ -34,12 +34,14 @@ const MovieDetails = ({
     }, 1000);
   }, [id, setErrorMessage, setIsError]);
 
-  const releaseDateStr = movieDetails.release_date;
-  const releaseDate = new Date(releaseDateStr);
-    releaseDate.setMinutes(
-    releaseDate.getMinutes() + releaseDate.getTimezoneOffset()
-  );
-  const utcReleaseYear = releaseDate.getUTCFullYear();
+  const utcReleaseYear = (release_date) => {
+    const localDate = new Date(release_date);
+    const year = localDate.getUTCFullYear();
+    const month = (localDate.getUTCMonth() + 1).toString().padStart(2, "0");
+    const day = localDate.getUTCDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+  
 
   return (
     <div className="movie-details">
@@ -63,17 +65,14 @@ const MovieDetails = ({
               />
               <div className="flex flex-col text-sm md:text-base text-gray-600  md:flex-row mt-10">
                 <h1 data-tesid="movie-title">{movieDetails.title}</h1>
-                <span>Release Date:</span>
-                <p data-testid="movie-release-date" className="md:mr-2">
-                  {utcReleaseYear}
-                </p>
-                <span>Runtime: </span>
+                <span>Release Date:</span><h3 data-testid="movie-release-date" className="md:mr-2">
+                  {utcReleaseYear(movieDetails.release_date)}
+                </h3><span>Runtime: </span>
                 <p data-testid="movie-runtime">{movieDetails.runtime}</p>
                 <span>minutes</span>
               </div>
               <div className="flex flex-col md:flex-row">
                 <p data-testid="movie-overview" className="mt-12 md:w-[62%]">
-                  {" "}
                   {movieDetails.overview}
                 </p>
                 <img
