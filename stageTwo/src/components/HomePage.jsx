@@ -71,7 +71,7 @@ const HomePage = ({ isError, errorMessage, setIsError, setErrorMessage }) => {
                     .filter((movie) => movie.poster_path !== null)
                     .slice(0, 10)
                     .map((movie) => (
-                      <MovieCard key={movie.id} movie={movie} />
+                      <MovieCard  key={movie.id} movie={movie} />
                     ))}
               </div>
             )}

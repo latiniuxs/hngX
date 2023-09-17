@@ -41,7 +41,6 @@ const MovieDetails = ({
     const day = localDate.getUTCDate().toString().padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-  
 
   return (
     <div className="movie-details">
@@ -65,9 +64,11 @@ const MovieDetails = ({
               />
               <div className="flex flex-col text-sm md:text-base text-gray-600  md:flex-row mt-10">
                 <h1 data-tesid="movie-title">{movieDetails.title}</h1>
-                <span>Release Date:</span><h3 data-testid="movie-release-date" className="md:mr-2">
+                <span>Release Date:</span>
+                <h3 data-testid="movie-release-date" className="md:mr-2">
                   {utcReleaseYear(movieDetails.release_date)}
-                </h3><span>Runtime: </span>
+                </h3>
+                <span>Runtime: </span>
                 <p data-testid="movie-runtime">{movieDetails.runtime}</p>
                 <span>minutes</span>
               </div>
