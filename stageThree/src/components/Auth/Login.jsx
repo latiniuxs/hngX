@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-const Login = ({ setShowSignup }) => {
+import { useNavigate } from 'react-router-dom';
+
+
+const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -13,19 +17,18 @@ const Login = ({ setShowSignup }) => {
     try {
       // Attempt Firebase authentication
       await signInWithEmailAndPassword(auth, email, password)
-      // .then((userCredential) =>{
-      //   console.log(userCredential)
-      // })
+      .then((userCredential) =>{
+        console.log(userCredential)
+      })
       // Authentication successful
       setError(null); // Reset error
-      // Here you can navigate the user to the authenticated page or perform any necessary actions
     } catch (error) {
       console.log("Firebase Authentication Error:", error.message);
 
       // If Firebase authentication fails, check for predefined login
       if (email === "user@example.com" && password === "1Password") {
         setError(null); // Reset error
-        // Here you can navigate the user to the authenticated page or perform any necessary actions
+
       } else {
         setError("Invalid email or password.");
       }
@@ -62,7 +65,9 @@ const Login = ({ setShowSignup }) => {
         Don't have an account?{" "}
         <button
           className="text-blue-500 underline"
-          onClick={() => setShowSignup(true)}
+          onClick={() => {
+          navigate('/signup')}
+          }
         >
           Sign Up
         </button>

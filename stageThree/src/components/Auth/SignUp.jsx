@@ -1,8 +1,10 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { auth } from '../../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
-const SignUp = () => {
+const SignUp = ({setUser}) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -51,11 +53,18 @@ const SignUp = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       console.log("Sign up successful");
+
+      // Update the user state to the authenticated user
+      const user = auth.currentUser;
+      setUser(user);
+
+      // Navigate to the appropriate page
+      navigate('/home'); // or navigate('/')
     } catch (error) {
       setError("Signup failed. Please try again.");
       console.error("Signup failed. Please try again.", error);
     }
-  }    
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-[100vh]">
@@ -90,7 +99,6 @@ const SignUp = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           className="w-64 p-2 mb-4 border border-gray-300 rounded"
         />
-        
         <button
           type="submit"
           className="w-64 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
@@ -98,6 +106,15 @@ const SignUp = () => {
           Sign Up
         </button>
       </form>
+      <span>Already have an account? </span>
+      <button
+        className="text-blue-500 underline mb-2"
+        onClick={() => {
+          navigate('/');
+        }}
+      >
+        Click here to login
+      </button>
     </div>
   );
 };
