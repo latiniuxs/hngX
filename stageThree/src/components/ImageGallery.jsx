@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { images } from "../Data/images";
 import { auth } from "../firebase";
 import Loader from "./Loading";
-import Footer from "./footer";
 import { useNavigate } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const ImageGallery = ({ onSignOut }) => {
+const ImageGallery = ({ onSignOut, user }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -79,7 +78,7 @@ const ImageGallery = ({ onSignOut }) => {
     <div className="flex "style={{ minHeight: 'calc(100vh - 64px)'}}>
       <div className="hidden sm:block w-1/6 p-4 bg-white text-black border-r-4">
         <h2 className="text-2xl mb-4">Photok</h2>
-        <p>Hello, User</p>
+        <p className="truncate max-w-[200px]">Hello, {user.email}</p>
         <button
           onClick={handleSignOut}
           className="bg-red-500 text-white px-3 py-2 rounded mt-4 hover:bg-red-600"
@@ -185,7 +184,6 @@ const ImageGallery = ({ onSignOut }) => {
         )}
         </>
         )}
-<Footer/>    
       </div>
     
     </div>

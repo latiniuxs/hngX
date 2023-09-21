@@ -54,7 +54,7 @@ function App() {
               path="/home"
               element={
                 user ? (
-                  <ImageGallery onSignOut={() => setUser(null)} />
+                  <ImageGallery onSignOut={() => setUser(null) } user={user} />
                 ) : (
                   <Navigate to="/" />
                 )
