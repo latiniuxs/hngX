@@ -10,16 +10,15 @@ const ImageGallery = ({ onSignOut }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [originalImages, setOriginalImages] = useState(images); // Store original images
-  const [filteredImages, setFilteredImages] = useState(originalImages); // Use a copy for filtering
+  const [filteredImages, setFilteredImages] = useState(images); // Use a copy for filtering
   const [imageOrder, setImageOrder] = useState(
-    originalImages.map((image) => image.id.toString())
+    images.map((image) => image.id.toString())
   );
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }, []);
 
   const handleSignOut = async () => {
@@ -60,7 +59,7 @@ const ImageGallery = ({ onSignOut }) => {
 
     // Update the filteredImages based on the new order
     const newFilteredImages = reorderedImages.map((imageId) =>
-      originalImages.find((img) => img.id.toString() === imageId)
+      images.find((img) => img.id.toString() === imageId)
     );
 
     setFilteredImages(newFilteredImages);
@@ -68,12 +67,12 @@ const ImageGallery = ({ onSignOut }) => {
 
   useEffect(() => {
     // Filter images based on search term
-    const newFilteredImages = originalImages.filter((image) =>
+    const newFilteredImages = images.filter((image) =>
       image.tag.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     setFilteredImages(newFilteredImages);
-  }, [searchTerm, originalImages]);
+  }, [searchTerm]);
 
   return (
     <div className="flex relative">
@@ -139,7 +138,7 @@ const ImageGallery = ({ onSignOut }) => {
           </div>
         ) : (
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Droppable droppableId="image.id">
+            <Droppable droppableId="image-list">
               {(provided) => (
                 <div
                   {...provided.droppableProps}
@@ -148,7 +147,7 @@ const ImageGallery = ({ onSignOut }) => {
                 >
                   {filteredImages.map((image, index) => (
                     <Draggable
-                      key={image.id.toString()}
+                      key={image.id}
                       draggableId={image.id.toString()}
                       index={index}
                     >

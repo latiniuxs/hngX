@@ -21,7 +21,7 @@ const Login = () => {
         console.log(userCredential)
       })
       // Authentication successful
-      setError(null); // Reset error
+      setError(null); 
     } catch (error) {
       console.log("Firebase Authentication Error:", error.message);
 
