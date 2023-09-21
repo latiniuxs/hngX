@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { images } from "../Data/images";
 import { auth } from "../firebase";
 import Loader from "./Loading";
+import Footer from "./footer";
 import { useNavigate } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -75,8 +76,8 @@ const ImageGallery = ({ onSignOut }) => {
   }, [searchTerm]);
 
   return (
-    <div className="flex relative">
-      <div className="hidden sm:block w-1/6 p-4 bg-white text-black border">
+    <div className="flex "style={{ minHeight: 'calc(100vh - 64px)'}}>
+      <div className="hidden sm:block w-1/6 p-4 bg-white text-black border-r-4">
         <h2 className="text-2xl mb-4">Photok</h2>
         <p>Hello, User</p>
         <button
@@ -109,14 +110,14 @@ const ImageGallery = ({ onSignOut }) => {
           <p>Hello, User</p>
           <button
             onClick={handleSignOut}
-            className="bg-red-500 text-white te px-3 py-2 rounded mt-4 sm:text-sm hover:bg-red-600"
+            className="bg-red-300 text-white te px-3 py-2 rounded mt-4 sm:text-sm hover:bg-red-600"
           >
             Sign Out
           </button>
         </div>
       )}
 
-      <div className="w-full p-4">
+      <div className="w-full p-4 overflow-y-auto">
         <nav className="mb-4 flex md:flex-row-reverse items-center">
           <input
             type="text"
@@ -137,7 +138,13 @@ const ImageGallery = ({ onSignOut }) => {
             <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
           </div>
         ) : (
-          <DragDropContext onDragEnd={handleDragEnd}>
+          <>            
+          {filteredImages.length === 0 && searchTerm ? (
+              <p className="text-center text-gray-600 mt-4">
+                No results found for "{searchTerm}".
+              </p>
+            ) : (
+            <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="image-list">
               {(provided) => (
                 <div
@@ -156,7 +163,7 @@ const ImageGallery = ({ onSignOut }) => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          className="bg-gray-300 flex flex-col items-center rounded overflow-hidden"
+                          className="bg-gray-300 flex flex-col rounded overflow-hidden"
                         >
                           <img
                             src={`./images/${image.url}.jpeg`}
@@ -176,7 +183,11 @@ const ImageGallery = ({ onSignOut }) => {
             </Droppable>
           </DragDropContext>
         )}
+        </>
+        )}
+<Footer/>    
       </div>
+    
     </div>
   );
 };

@@ -28,7 +28,7 @@ function App() {
 
   return (
     <Router>
-      <div className="container mx-auto p-8">
+      <div className="container mx-auto ">
         {loading ? (
           <div className="flex justify-center items-center h-screen">
             <Loading />

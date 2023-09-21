@@ -67,8 +67,8 @@ const SignUp = ({setUser}) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-[100vh]">
-      <h2 className="text-2xl font-semibold mb-4">Create Account</h2>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h2 className="text-2xl  font-semibold mb-4">Create Account</h2>
       {error && <p className="text-red-500 mb-2">{error}</p>}
       <form onSubmit={handleSignup} className="flex flex-col items-center">
         <input
